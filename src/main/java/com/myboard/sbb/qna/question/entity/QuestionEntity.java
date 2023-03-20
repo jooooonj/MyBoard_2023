@@ -1,12 +1,9 @@
 package com.myboard.sbb.qna.question.entity;
 
-import com.myboard.sbb.qna.answer.AnswerEntity;
-import com.myboard.sbb.shared.base.BaseEntity;
+import com.myboard.sbb.qna.answer.entity.AnswerEntity;
+import com.myboard.sbb.shared.base.baseentity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class QuestionEntity extends BaseEntity {
     @Column(length = 200)
     private String subject;

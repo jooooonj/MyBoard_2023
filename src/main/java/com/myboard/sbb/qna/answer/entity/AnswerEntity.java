@@ -1,7 +1,7 @@
-package com.myboard.sbb.qna.answer;
+package com.myboard.sbb.qna.answer.entity;
 
 import com.myboard.sbb.qna.question.entity.QuestionEntity;
-import com.myboard.sbb.shared.base.BaseEntity;
+import com.myboard.sbb.shared.base.baseentity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
