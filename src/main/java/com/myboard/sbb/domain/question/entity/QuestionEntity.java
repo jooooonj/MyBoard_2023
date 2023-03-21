@@ -5,6 +5,7 @@ import com.myboard.sbb.shared.base.baseentity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,5 +20,10 @@ public class QuestionEntity extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<AnswerEntity> answerList;
+    private List<AnswerEntity> answerList = new ArrayList<>();
+
+
+    public void addAnswer(AnswerEntity answer) {
+        answerList.add(answer);
+    }
 }

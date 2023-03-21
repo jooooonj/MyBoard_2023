@@ -4,6 +4,7 @@ import com.myboard.sbb.domain.question.entity.QuestionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ public interface QuestionRepository extends JpaRepository<QuestionEntity, Long> 
 
     List<QuestionEntity> findBySubjectLike(String subject);
 
-//    @Modifying query 어노테이션에서 실행되는 것이 UPDATE, DELETE, INSERT 라면 붙여야한다.
 
-    @Query(value = "ALTER TABLE question AUTO_INCREMENT = 1", nativeQuery = true)
+    @Modifying
+    @Transactional
+    @Query(value = "ALTER TABLE question_entity AUTO_INCREMENT=1;", nativeQuery = true)
     void clearAutoIncrement();
 }

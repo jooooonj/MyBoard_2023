@@ -18,4 +18,5 @@ public class AnswerEntity extends BaseEntity {
     QuestionEntity question;
     @Column(columnDefinition = "TEXT")
     String content;
+
 }
