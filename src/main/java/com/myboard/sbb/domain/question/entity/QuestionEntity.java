@@ -1,6 +1,6 @@
-package com.myboard.sbb.qna.question.entity;
+package com.myboard.sbb.domain.question.entity;
 
-import com.myboard.sbb.qna.answer.entity.AnswerEntity;
+import com.myboard.sbb.domain.answer.entity.AnswerEntity;
 import com.myboard.sbb.shared.base.baseentity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +18,6 @@ public class QuestionEntity extends BaseEntity {
     private String subject;
     @Column(columnDefinition = "TEXT")
     private String content;
-
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answerList;
 }

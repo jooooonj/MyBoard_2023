@@ -1,9 +1,9 @@
 package com.myboard.sbb.shared.base.basedata;
 
-import com.myboard.sbb.qna.answer.entity.AnswerEntity;
-import com.myboard.sbb.qna.answer.repository.AnswerRepository;
-import com.myboard.sbb.qna.question.entity.QuestionEntity;
-import com.myboard.sbb.qna.question.repository.QuestionRepository;
+import com.myboard.sbb.domain.answer.entity.AnswerEntity;
+import com.myboard.sbb.domain.answer.repository.AnswerRepository;
+import com.myboard.sbb.domain.question.entity.QuestionEntity;
+import com.myboard.sbb.domain.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
