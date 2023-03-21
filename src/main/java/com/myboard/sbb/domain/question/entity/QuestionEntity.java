@@ -23,7 +23,6 @@ public class QuestionEntity extends BaseEntity {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answerList = new ArrayList<>();
 
-
     public void addAnswer(AnswerEntity answer) {
         answerList.add(answer);
     }

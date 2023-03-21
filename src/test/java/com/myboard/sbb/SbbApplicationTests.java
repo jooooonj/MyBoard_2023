@@ -59,7 +59,7 @@ class SbbApplicationTests {
 				.question(question3)
 				.content("홍길동입니다.")
 				.build();
-//		question3.addAnswer(answer);
+		question3.addAnswer(answer);
 		AnswerEntity savedAnswerEntity = answerRepository.save(answer);
 	}
 	@Test
@@ -146,11 +146,8 @@ class SbbApplicationTests {
 		QuestionEntity question = this.questionRepository.findById(Long.valueOf(3)).orElse(null);
 		assertNotNull(question);
 
-		System.out.println(question.getSubject());
-
 		List<AnswerEntity> answerList = question.getAnswerList();
-		System.out.println(answerList);
-
+		assertEquals(1, answerList.size());
 	}
 
 	@Test
