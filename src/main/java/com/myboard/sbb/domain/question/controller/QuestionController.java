@@ -6,6 +6,7 @@ import com.myboard.sbb.domain.question.form.QuestionForm;
 import com.myboard.sbb.domain.question.service.QuestionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,11 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping("/list")
-    public String showQuestions(Model model) {
-        List<QuestionEntity> questions = questionService.getQuestions();
-        model.addAttribute("questionList", questions);
-        return "question/list";
+    @ResponseBody
+    public Page<QuestionEntity> showQuestions(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+        Page<QuestionEntity> paging = questionService.getQuestions(page);
+        model.addAttribute("paging", paging);
+        return paging;
     }
 
     @GetMapping("/detail/{id}")

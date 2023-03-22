@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class BaseData implements CommandLineRunner {
     private final QuestionRepository questionRepository;

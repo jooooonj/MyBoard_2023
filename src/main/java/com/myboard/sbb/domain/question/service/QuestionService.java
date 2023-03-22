@@ -4,6 +4,9 @@ import com.myboard.sbb.domain.question.entity.QuestionEntity;
 import com.myboard.sbb.domain.question.repository.QuestionRepository;
 import com.myboard.sbb.shared.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +25,10 @@ public class QuestionService {
         throw new DataNotFoundException("this Question is not found");
     }
 
-    public List<QuestionEntity> getQuestions(){
-        return questionRepository.findAll();
+    public Page<QuestionEntity> getQuestions(int page){
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<QuestionEntity> paging = questionRepository.findAll(pageable);
+        return paging;
     }
 
     public QuestionEntity addQuestion(String subject, String content){
@@ -34,4 +39,5 @@ public class QuestionService {
                 .build();
         return questionRepository.save(question);
     }
+
 }

@@ -160,4 +160,18 @@ class SbbApplicationTests {
 			System.out.println(questions.get(i).getSubject());
 		}
 	}
+
+	@Test
+	void testt(){
+		for (int i = 1; i <= 300; i++) {
+			String subject = String.format("테스트 데이터입니다:[%03d]", i);
+			String content = "내용무";
+			QuestionEntity question = QuestionEntity
+					.builder()
+					.content(content)
+					.subject(subject)
+					.build();
+			questionRepository.save(question);
+		}
+	}
 }
