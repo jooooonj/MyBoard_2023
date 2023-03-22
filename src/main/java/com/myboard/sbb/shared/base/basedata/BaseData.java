@@ -41,6 +41,7 @@ public class BaseData implements CommandLineRunner {
                 .question(question3)
                 .content("홍길동입니다.")
                 .build();
+        question3.addAnswer(answer);
         AnswerEntity savedAnswerEntity = answerRepository.save(answer);
     }
 }

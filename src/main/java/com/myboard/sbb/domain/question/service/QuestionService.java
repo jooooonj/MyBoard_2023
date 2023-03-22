@@ -22,7 +22,16 @@ public class QuestionService {
         throw new DataNotFoundException("this Question is not found");
     }
 
-    public List<QuestionEntity> getQList(){
+    public List<QuestionEntity> getQuestions(){
         return questionRepository.findAll();
+    }
+
+    public QuestionEntity addQuestion(String subject, String content){
+        QuestionEntity question = QuestionEntity
+                .builder()
+                .subject(subject)
+                .content(content)
+                .build();
+        return questionRepository.save(question);
     }
 }
