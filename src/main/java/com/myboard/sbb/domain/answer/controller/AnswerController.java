@@ -29,6 +29,7 @@ public class AnswerController {
         }
 
         this.answerService.addAnswer(question, answerForm.getContent());
-        return String.format("redirect:/question/detail/%s", id);
+        return "redirect:/question/detail/"+ id;
+
     }
 }

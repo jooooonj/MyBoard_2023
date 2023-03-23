@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +27,8 @@ public class QuestionService {
     }
 
     public Page<QuestionEntity> getQuestions(int page){
-        Pageable pageable = PageRequest.of(page, 10);
+        int pageLimit = 10;
+        Pageable pageable = PageRequest.of(page, pageLimit, Sort.Direction.DESC, "id");
         Page<QuestionEntity> paging = questionRepository.findAll(pageable);
         return paging;
     }

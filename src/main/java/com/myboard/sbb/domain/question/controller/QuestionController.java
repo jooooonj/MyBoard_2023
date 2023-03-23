@@ -21,11 +21,17 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @GetMapping("/list")
-    @ResponseBody
-    public Page<QuestionEntity> showQuestions(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+    public String showQuestions(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         Page<QuestionEntity> paging = questionService.getQuestions(page);
-        model.addAttribute("paging", paging);
-        return paging;
+
+        int blockPage = 5;
+        int startPage = (page / blockPage) * blockPage + 1;
+        int endPage = Math.min(startPage + blockPage -1, paging.getTotalPages());
+
+        model.addAttribute("questionList", paging);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "question/list";
     }
 
     @GetMapping("/detail/{id}")
@@ -36,14 +42,14 @@ public class QuestionController {
     }
 
     @GetMapping("/create")
-    public String create(QuestionForm questionForm){
+    public String createForm(QuestionForm questionForm){
         return "question/form";
     }
 
     @PostMapping("/create")
     public String create(@Valid QuestionForm questionForm, BindingResult bindingResult){
         if(bindingResult.hasErrors())
-            return "redirect:/question/create";
+            return "question/form";
 
         questionService.addQuestion(questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/list";

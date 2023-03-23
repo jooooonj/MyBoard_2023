@@ -9,7 +9,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="question, loop : ${paging}">
+        <tr th:each="question, loop : ${questionList}">
             <td th:text="${loop.count}"></td>
             <td>
                 <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
@@ -18,6 +18,26 @@
         </tr>
         </tbody>
     </table>
+
+    <div th:if="${!questionList.isEmpty()}" class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${!questionList.hasPrevious()} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${questionList.number-1}|}">
+                    <span>Previous</span>
+                </a>
+            </li>
+            <li th:each="page : ${#numbers.sequence(startPage, endPage)}"
+                th:classappend="${page==questionList.number + 1} ? 'active'"
+                class="page-item">
+                <a class="page-link" th:text="${page}" th:href="@{|?page=${page - 1}|}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!questionList.hasNext()} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${questionList.number + 1}|}">
+                    <span>Next</span>
+                </a>
+            </li>
+        </ul>
+    </div>
     <a th:href="@{|/question/create|}" class="btn btn-primary">질문 등록하기</a>
 </div>
 </html>
