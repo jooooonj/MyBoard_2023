@@ -4,6 +4,7 @@ import com.myboard.sbb.domain.user.form.SignupForm;
 import com.myboard.sbb.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +33,17 @@ public class UserController {
             return "user/signup";
         }
 
-        userService.register(signupForm);
+        try {
+            userService.register(signupForm);
+        }catch(DataIntegrityViolationException e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+            return "user/signup";
+        }catch(Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("signupFailed", e.getMessage());
+            return "user/signup";
+        }
         return "redirect:/";
     }
 

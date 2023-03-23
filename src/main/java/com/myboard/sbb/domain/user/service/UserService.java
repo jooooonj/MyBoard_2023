@@ -60,6 +60,7 @@ public class UserService {
                 .userId(signupForm.getUserId())
                 .password(passwordEncoder.encode(signupForm.getPassword()))
                 .username(signupForm.getUsername())
+                .email(signupForm.getEmail())
                 .build();
 
         return userRepository.save(user);
