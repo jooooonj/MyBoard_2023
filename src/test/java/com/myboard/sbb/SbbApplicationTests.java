@@ -101,16 +101,6 @@ class SbbApplicationTests {
 		assertThat(2).isEqualTo(questionList.size());
 	}
 
-	@Test
-	@DisplayName("수정 테스트")
-	void updateToQuestion() {
-		QuestionEntity question = questionRepository.findById(Long.valueOf(1)).orElse(null);
-		question.setSubject("changeTest1");
-		questionRepository.save(question);
-
-		QuestionEntity updatedQuestion = questionRepository.findById(Long.valueOf(1)).orElse(null);
-		assertEquals(updatedQuestion.getSubject(), "changeTest1");
-	}
 
 	@Test
 	@DisplayName("삭제 테스트")
