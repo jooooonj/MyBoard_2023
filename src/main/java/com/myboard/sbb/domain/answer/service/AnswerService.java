@@ -47,7 +47,8 @@ public class AnswerService {
         answerRepository.save(answer);
     }
 
-
-
-
+    public void vote(AnswerEntity answer, SiteUser user) {
+        answer.getVoter().add(user);
+        answerRepository.save(answer);
+    }
 }

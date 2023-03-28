@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -25,6 +26,9 @@ public class QuestionEntity extends BaseEntity {
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> voter;
 
     public void modify(String subject, String content) {
         this.subject = subject;

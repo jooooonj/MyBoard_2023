@@ -85,4 +85,15 @@ public class AnswerController {
         return "redirect:/question/detail/" + answer.getQuestion().getId();
     }
 
+    @GetMapping("/vote/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String vote(Principal principal, @PathVariable(value = "id") long id){
+        SiteUser user = userService.getUser(principal.getName());
+        AnswerEntity answer = answerService.getAnswer(id);
+
+        answerService.vote(answer, user);
+
+        return "redirect:/question/detail/" + answer.getQuestion().getId();
+    }
+
 }

@@ -17,3 +17,12 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false
+  spring:
+    devtools:
+      livereload:
+        # livereload 서버 켜기
+        enabled: true
+      remote:
+        restart:
+          # 원격 재시작 활성화
+          enabled: true

@@ -65,6 +65,7 @@ public class QuestionController {
         return "redirect:/question/list";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String modify(@PathVariable(value = "id") long id, Principal principal, QuestionForm questionForm) {
         QuestionEntity question = questionService.getQuestion(id);
@@ -78,6 +79,7 @@ public class QuestionController {
         return "question/form";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String modify(@Valid QuestionForm questionForm, BindingResult bindingResult,
                          @PathVariable(value = "id") long id, Principal principal) {
@@ -95,6 +97,7 @@ public class QuestionController {
         return "redirect:/question/detail/"+ id;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") long id, Principal principal) {
         QuestionEntity question = questionService.getQuestion(id);
@@ -104,5 +107,14 @@ public class QuestionController {
         }
         questionService.delete(question);
         return "redirect:/";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String vote(@PathVariable(value = "id") long id, Principal principal) {
+        QuestionEntity question = questionService.getQuestion(id);
+        SiteUser user = userService.getUser(principal.getName());
+        questionService.vote(question, user);
+        return "redirect:/question/detail/"+id;
     }
 }

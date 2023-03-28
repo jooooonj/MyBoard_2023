@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Builder
 @AllArgsConstructor
@@ -21,7 +23,8 @@ public class AnswerEntity extends BaseEntity {
     private String content;
     @ManyToOne
     private SiteUser author;
-
+    @ManyToMany
+    Set<SiteUser> voter;
     public void modifyContent(String content){
         this.content = content;
     }

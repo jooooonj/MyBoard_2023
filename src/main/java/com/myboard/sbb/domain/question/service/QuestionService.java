@@ -59,4 +59,9 @@ public class QuestionService {
         questionRepository.delete(questionEntity);
 
     }
+
+    public void vote(QuestionEntity question, SiteUser user) {
+        question.getVoter().add(user);
+        questionRepository.save(question);
+    }
 }
