@@ -22,4 +22,7 @@ public class AnswerEntity extends BaseEntity {
     @ManyToOne
     private SiteUser author;
 
+    public void modifyContent(String content){
+        this.content = content;
+    }
 }

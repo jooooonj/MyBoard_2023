@@ -68,7 +68,6 @@ public class QuestionController {
     @GetMapping("/modify/{id}")
     public String modify(@PathVariable(value = "id") long id, Principal principal, QuestionForm questionForm) {
         QuestionEntity question = questionService.getQuestion(id);
-        System.out.println(question.getAuthor().getUserId() +", " + principal.getName());
 
         if (!question.getAuthor().getUserId().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -94,6 +93,16 @@ public class QuestionController {
 
         questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
         return "redirect:/question/detail/"+ id;
+    }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable(value = "id") long id, Principal principal) {
+        QuestionEntity question = questionService.getQuestion(id);
+
+        if (!question.getAuthor().getUserId().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        questionService.delete(question);
+        return "redirect:/";
     }
 }

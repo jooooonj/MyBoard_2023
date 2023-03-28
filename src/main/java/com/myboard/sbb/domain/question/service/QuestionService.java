@@ -54,4 +54,9 @@ public class QuestionService {
         question.modify(subject, content);
         questionRepository.save(question);
     }
+
+    public void delete(QuestionEntity questionEntity) {
+        questionRepository.delete(questionEntity);
+
+    }
 }

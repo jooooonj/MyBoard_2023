@@ -9,11 +9,13 @@ import com.myboard.sbb.domain.user.entity.SiteUser;
 import com.myboard.sbb.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
@@ -37,7 +39,50 @@ public class AnswerController {
         }
 
         answerService.addAnswer(question, answerForm.getContent(), user);
-        return "redirect:/question/detail/"+ id;
-
+        return "redirect:/question/detail/" + id;
     }
+
+    @GetMapping("/modify/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String modifyForm(@PathVariable(value = "id") long id, Principal principal, AnswerForm answerForm) {
+        AnswerEntity answer = answerService.getAnswer(id);
+
+        if (!principal.getName().equals(answer.getAuthor().getUserId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+        }
+
+        answerForm.setContent(answer.getContent());
+        return "answer/form";
+    }
+
+    @PostMapping("/modify/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String modify(@Valid AnswerForm answerForm, BindingResult bindingResult,
+                         @PathVariable(value = "id") long id, Principal principal) {
+        if (bindingResult.hasErrors())
+            return "answer/form";
+
+        AnswerEntity answer = answerService.getAnswer(id);
+
+        if (!principal.getName().equals(answer.getAuthor().getUserId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
+        }
+
+        answerService.modify(answer, answerForm.getContent());
+        return "redirect:/question/detail/" + answer.getQuestion().getId();
+    }
+
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public String delete(@PathVariable(value = "id") long id, Principal principal){
+        AnswerEntity answer = answerService.getAnswer(id);
+
+        if (!principal.getName().equals(answer.getAuthor().getUserId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+        }
+        answerService.delete(answer);
+
+        return "redirect:/question/detail/" + answer.getQuestion().getId();
+    }
+
 }

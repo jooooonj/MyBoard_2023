@@ -25,6 +25,15 @@ public class AnswerService {
         throw new DataNotFoundException("this Question is not found");
     }
 
+    public void modify(AnswerEntity answer, String content){
+        answer.modifyContent(content);
+        answerRepository.save(answer);
+    }
+
+    public void delete(AnswerEntity answer) {
+        answerRepository.delete(answer);
+    }
+
     public void addAnswer(QuestionEntity question, String content,SiteUser user) {
         AnswerEntity answer = AnswerEntity
                 .builder()
