@@ -37,4 +37,6 @@ public class QuestionEntity extends BaseEntity {
     public void addAnswer(AnswerEntity answer) {
         answerList.add(answer);
     }
+    
+    
 }

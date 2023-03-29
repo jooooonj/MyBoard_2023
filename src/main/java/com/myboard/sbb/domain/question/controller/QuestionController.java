@@ -28,8 +28,8 @@ public class QuestionController {
     private final UserService userService;
 
     @GetMapping("/list")
-    public String showQuestions(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
-        Page<QuestionEntity> paging = questionService.getQuestions(page);
+    public String showQuestions(@RequestParam(value = "page", defaultValue = "0") int page, Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<QuestionEntity> paging = questionService.getQuestions(page, kw);
 
         int blockPage = 5;
         int startPage = (page / blockPage) * blockPage + 1;
@@ -38,6 +38,7 @@ public class QuestionController {
         model.addAttribute("questionList", paging);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("kw", kw);
         return "question/list";
     }
 

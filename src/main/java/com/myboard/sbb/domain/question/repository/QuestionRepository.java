@@ -3,11 +3,13 @@ package com.myboard.sbb.domain.question.repository;
 import com.myboard.sbb.domain.question.entity.QuestionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.print.attribute.standard.RequestingUserName;
 import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<QuestionEntity, Long> {
@@ -16,7 +18,7 @@ public interface QuestionRepository extends JpaRepository<QuestionEntity, Long> 
 
     List<QuestionEntity> findBySubjectLike(String subject);
 
-    Page<QuestionEntity> findAll(Pageable pageable);
+    Page<QuestionEntity> findAll(Specification<QuestionEntity> spec, Pageable pageable);
 
 
     @Modifying

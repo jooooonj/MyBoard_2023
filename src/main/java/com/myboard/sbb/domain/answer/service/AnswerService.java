@@ -34,7 +34,7 @@ public class AnswerService {
         answerRepository.delete(answer);
     }
 
-    public void addAnswer(QuestionEntity question, String content,SiteUser user) {
+    public AnswerEntity addAnswer(QuestionEntity question, String content,SiteUser user) {
         AnswerEntity answer = AnswerEntity
                 .builder()
                 .content(content)
@@ -45,6 +45,7 @@ public class AnswerService {
         question.addAnswer(answer);
         user.addAnswer(answer);
         answerRepository.save(answer);
+        return answer;
     }
 
     public void vote(AnswerEntity answer, SiteUser user) {

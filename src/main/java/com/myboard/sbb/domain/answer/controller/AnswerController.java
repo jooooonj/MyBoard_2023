@@ -38,8 +38,8 @@ public class AnswerController {
             return "question/detail";
         }
 
-        answerService.addAnswer(question, answerForm.getContent(), user);
-        return "redirect:/question/detail/" + id;
+        AnswerEntity answer = answerService.addAnswer(question, answerForm.getContent(), user);
+        return String.format("redirect:/question/detail/%s#answer_%s", id, answer.getId());
     }
 
     @GetMapping("/modify/{id}")
@@ -69,7 +69,7 @@ public class AnswerController {
         }
 
         answerService.modify(answer, answerForm.getContent());
-        return "redirect:/question/detail/" + answer.getQuestion().getId();
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
     @GetMapping("/delete/{id}")
@@ -93,7 +93,8 @@ public class AnswerController {
 
         answerService.vote(answer, user);
 
-        return "redirect:/question/detail/" + answer.getQuestion().getId();
+        return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
-
 }
+
+
